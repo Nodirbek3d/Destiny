@@ -49,11 +49,12 @@ public class MainActivity extends AppCompatActivity {
         } else {
             currentStory = stories[0];
         }
-        update();
 
-        storyText.setText(currentStory.getStory());
-        btnAnswerOne.setText(currentStory.getButton_1_text());
-        btnAnswerTwo.setText(currentStory.getButton_2_text());
+        btnAnswerOne = findViewById(R.id.btnAnswer_1);
+        btnAnswerTwo = findViewById(R.id.btnAnswer_2);
+        storyText = findViewById(R.id.textStory);
+
+        update();
 
         btnAnswerOne.setOnClickListener(new View.OnClickListener() {
             @Override

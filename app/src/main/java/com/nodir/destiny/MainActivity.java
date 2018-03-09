@@ -2,6 +2,7 @@ package com.nodir.destiny;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
     private Story story_t4;
     private Story story_t5;
     private Story story_t6;
-    AlertDialog.Builder dialog;
 
 
     @Override
@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         dialog.show();
     }
 
@@ -110,8 +111,5 @@ public class MainActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt("story id", currentStory.getID() - 1);
-        if (dialog != null){
-            recreate();
-        }
     }
 }

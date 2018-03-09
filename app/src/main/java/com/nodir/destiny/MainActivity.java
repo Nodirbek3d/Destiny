@@ -1,5 +1,7 @@
 package com.nodir.destiny;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,7 +21,11 @@ public class MainActivity extends AppCompatActivity {
     private Story story_t5;
     private Story story_t6;
 
-    {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         story_t1 = new Story(getString(R.string.T1_Story), getString(R.string.T1_Ans1), getString(R.string.T1_Ans2));
         story_t2 = new Story(getString(R.string.T2_Story), getString(R.string.T2_Ans1), getString(R.string.T2_Ans2));
         story_t3 = new Story(getString(R.string.T3_Story), getString(R.string.T3_Ans1), getString(R.string.T3_Ans2));
@@ -33,13 +39,6 @@ public class MainActivity extends AppCompatActivity {
         story_t2.setNextStoryOnAnswer2(story_t4);
         story_t3.setNextStoryOnAnswer1(story_t6);
         story_t3.setNextStoryOnAnswer2(story_t5);
-    }
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
         btnAnswerOne = findViewById(R.id.btnAnswer_1);
         btnAnswerTwo = findViewById(R.id.btnAnswer_2);
@@ -79,5 +78,23 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+    private void reset(){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle(getString(R.string.alertTitle));
+        dialog.setMessage(getString(R.string.alertMessage));
+        dialog.setPositiveButton(getString(R.string.alertYes), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface anInterface, int i) {
+                onCreate(null);
+            }
+        });
+        dialog.setNegativeButton(getString(R.string.alertNo), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface anInterface, int i) {
+                finish();
+            }
+        });
+        dialog.show();
     }
 }

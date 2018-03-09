@@ -51,14 +51,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 currentStory = currentStory.getStoryOn1();
-                storyText.setText(currentStory.getStory());
-                if (currentStory.isEnd()){
-                    btnAnswerOne.setVisibility(View.INVISIBLE);
-                    btnAnswerTwo.setVisibility(View.INVISIBLE);
-                } else {
-                    btnAnswerOne.setText(currentStory.getButton_1_text());
-                    btnAnswerTwo.setText(currentStory.getButton_2_text());
-                }
+                update();
             }
         });
 
@@ -66,19 +59,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 currentStory = currentStory.getStoryOn2();
-                storyText.setText(currentStory.getStory());
-                if (currentStory.isEnd()){
-                    btnAnswerOne.setVisibility(View.INVISIBLE);
-                    btnAnswerTwo.setVisibility(View.INVISIBLE);
-                } else {
-                    btnAnswerOne.setText(currentStory.getButton_1_text());
-                    btnAnswerTwo.setText(currentStory.getButton_2_text());
-                }
+                update();
             }
         });
-
-
     }
+
+    private void update() {
+        storyText.setText(currentStory.getStory());
+        if (currentStory.isEnd()){
+            btnAnswerOne.setVisibility(View.INVISIBLE);
+            btnAnswerTwo.setVisibility(View.INVISIBLE);
+            reset();
+        } else {
+            btnAnswerOne.setText(currentStory.getButton_1_text());
+            btnAnswerTwo.setText(currentStory.getButton_2_text());
+        }
+    }
+
     private void reset(){
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle(getString(R.string.alertTitle));
@@ -86,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         dialog.setPositiveButton(getString(R.string.alertYes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface anInterface, int i) {
-                onCreate(null);
+                recreate();
             }
         });
         dialog.setNegativeButton(getString(R.string.alertNo), new DialogInterface.OnClickListener() {

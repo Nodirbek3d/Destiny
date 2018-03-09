@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         dialog.setPositiveButton(getString(R.string.alertYes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface anInterface, int i) {
+                currentStory = story_t1;
                 recreate();
             }
         });
@@ -101,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         dialog.show();
     }
 

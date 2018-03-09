@@ -11,9 +11,11 @@ public class Story {
     private String button_2_text;
     private Story nextStoryOnAnswer1;
     private Story nextStoryOnAnswer2;
+    private int storyID;
 
-    public Story(String story, String button_1_text, String button_2_text){
+    public Story(String story, int id, String button_1_text, String button_2_text){
         this.story = story;
+        this.storyID = id;
         this.button_1_text = button_1_text;
         this.button_2_text = button_2_text;
         isEnd = button_1_text == null;
@@ -41,4 +43,8 @@ public class Story {
         return nextStoryOnAnswer1;
     }
     public Story getStoryOn2(){ return nextStoryOnAnswer2; }
+
+    public int getID() {
+        return storyID;
+    }
 }

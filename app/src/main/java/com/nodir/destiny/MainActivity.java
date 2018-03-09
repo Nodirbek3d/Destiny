@@ -1,6 +1,7 @@
 package com.nodir.destiny;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,18 +21,19 @@ public class MainActivity extends AppCompatActivity {
     private Story story_t4;
     private Story story_t5;
     private Story story_t6;
+    private int id = 0;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        story_t1 = new Story(getString(R.string.T1_Story), getString(R.string.T1_Ans1), getString(R.string.T1_Ans2));
-        story_t2 = new Story(getString(R.string.T2_Story), getString(R.string.T2_Ans1), getString(R.string.T2_Ans2));
-        story_t3 = new Story(getString(R.string.T3_Story), getString(R.string.T3_Ans1), getString(R.string.T3_Ans2));
-        story_t4 = new Story(getString(R.string.T4_End), null, null);
-        story_t5 = new Story(getString(R.string.T5_End), null, null);
-        story_t6 = new Story(getString(R.string.T6_End), null, null);
+        story_t1 = new Story(getString(R.string.T1_Story), 1, getString(R.string.T1_Ans1), getString(R.string.T1_Ans2));
+        story_t2 = new Story(getString(R.string.T2_Story), 2, getString(R.string.T2_Ans1), getString(R.string.T2_Ans2));
+        story_t3 = new Story(getString(R.string.T3_Story), 3, getString(R.string.T3_Ans1), getString(R.string.T3_Ans2));
+        story_t4 = new Story(getString(R.string.T4_End), 4, null, null);
+        story_t5 = new Story(getString(R.string.T5_End), 5, null, null);
+        story_t6 = new Story(getString(R.string.T6_End), 6, null, null);
 
         story_t1.setNextStoryOnAnswer1(story_t3);
         story_t1.setNextStoryOnAnswer2(story_t2);
@@ -40,12 +42,21 @@ public class MainActivity extends AppCompatActivity {
         story_t3.setNextStoryOnAnswer1(story_t6);
         story_t3.setNextStoryOnAnswer2(story_t5);
 
+        Story[] stories = {story_t1, story_t2, story_t3, story_t4, story_t5, story_t6};
+
+        if (savedInstanceState != null){
+            currentStory = stories[savedInstanceState.getInt("story id")];
+        } else {
+            currentStory = stories[0];
+        }
+
         btnAnswerOne = findViewById(R.id.btnAnswer_1);
         btnAnswerTwo = findViewById(R.id.btnAnswer_2);
         storyText = findViewById(R.id.textStory);
 
-        currentStory = story_t1;
         storyText.setText(currentStory.getStory());
+        btnAnswerOne.setText(currentStory.getButton_1_text());
+        btnAnswerTwo.setText(currentStory.getButton_2_text());
 
         btnAnswerOne.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,5 +104,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         dialog.show();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("story id", currentStory.getID() - 1);
     }
 }

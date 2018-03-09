@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private Story story_t4;
     private Story story_t5;
     private Story story_t6;
-    private int id = 0;
+    AlertDialog.Builder dialog;
 
 
     @Override
@@ -110,5 +110,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt("story id", currentStory.getID() - 1);
+        if (dialog != null){
+            recreate();
+        }
     }
 }
